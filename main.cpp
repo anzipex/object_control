@@ -31,7 +31,16 @@ float framesPerSecond = 60;
 uint64_t prevInputTime = GetMillisec();
 float inputPerSecond = 200;
 
+/* special functions */
+
+int WinWidth = 1280;
+int WinHeight = 720;
+bool Fullscreen = false;
+
+/* enf of special functions */
+
 /* control */
+
 const float StepUp = 10.0f;
 const float StepDown = 10.0f;
 const float StepLeft = 10.0f;
@@ -139,7 +148,6 @@ void IdleFunc() {
 }
 
 void ReshapeFunc(int width, int height) {
-    glutReshapeWindow(1280, 720);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glViewport(0, 0, width, height);
@@ -151,7 +159,7 @@ void ReshapeFunc(int width, int height) {
 void Display(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
-    glutInitWindowSize(1280, 720);
+    glutInitWindowSize(WinWidth, WinHeight);
     glutCreateWindow("Object Control");
     glutDisplayFunc(DisplayFunc);
     glutIdleFunc(IdleFunc);
@@ -278,6 +286,17 @@ void SpecialFunc(int key, int x, int y) {
         case GLUT_KEY_RIGHT:
             Rotate -= StepRight;
             PrintInfo();
+            break;
+
+            /* f11 (fullscreen) */
+        case GLUT_KEY_F11:
+            if (!Fullscreen) {
+                glutFullScreen();
+                Fullscreen = true;
+            } else {
+                glutReshapeWindow(WinWidth, WinHeight);
+                Fullscreen = false;
+            }
             break;
     }
 }

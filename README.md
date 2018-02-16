@@ -23,4 +23,5 @@ sudo apt install libpng12-dev
 - arrow down - down
 - arrow left - rotate left
 - arrow right - rotate right
+- f11 - fullscreen
 - esc - exit
