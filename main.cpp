@@ -12,6 +12,9 @@
 
 namespace {
 Object *myobject = nullptr;
+int WinWidth = 1280;
+int WinHeight = 720;
+bool Fullscreen = false;
 }
 
 uint64_t GetMillisec();
@@ -22,6 +25,8 @@ void ClearAll();
 int RandomPosition();
 int SignChanger();
 void ChangeRotate();
+void SetAlwaysRotate();
+void SetFullscreen();
 
 uint64_t prevUpdateTime = GetMillisec();
 float updatePerSecond = 60;
@@ -30,14 +35,6 @@ uint64_t prevFrameTime = GetMillisec();
 float framesPerSecond = 60;
 uint64_t prevInputTime = GetMillisec();
 float inputPerSecond = 200;
-
-/* special functions */
-
-int WinWidth = 1280;
-int WinHeight = 720;
-bool Fullscreen = false;
-
-/* enf of special functions */
 
 /* control */
 
@@ -113,6 +110,25 @@ void ChangeRotate() {
     }
 }
 
+void SetAlwaysRotate() {
+    if (SwitcherRotate) {
+        SwitcherRotate = false;
+        ChangeRotate();
+    } else {
+        SwitcherRotate = true;
+    }
+}
+
+void SetFullscreen() {
+    if (!Fullscreen) {
+        glutFullScreen();
+        Fullscreen = true;
+    } else {
+        glutReshapeWindow(WinWidth, WinHeight);
+        Fullscreen = false;
+    }
+}
+
 void IdleFunc() {
     const auto time = GetMillisec();
     auto updateTimeExp = time - prevUpdateTime;
@@ -151,7 +167,6 @@ void ReshapeFunc(int width, int height) {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glViewport(0, 0, width, height);
-    //    gluPerspective(45, 16 / 9, 1, 1000);
     glOrtho(-width / 2.0, width / 2.0, -height / 2.0, height / 2.0, 0, 10.0);
     glMatrixMode(GL_MODELVIEW);
 }
@@ -247,12 +262,7 @@ void KeyboardFunc(unsigned char key, int x, int y) {
 
             /* num plus (rotate) */
         case 43:
-            if (SwitcherRotate) {
-                SwitcherRotate = false;
-                ChangeRotate();
-            } else {
-                SwitcherRotate = true;
-            }
+            SetAlwaysRotate();
             break;
 
             /* escape (exit) */
@@ -290,13 +300,7 @@ void SpecialFunc(int key, int x, int y) {
 
             /* f11 (fullscreen) */
         case GLUT_KEY_F11:
-            if (!Fullscreen) {
-                glutFullScreen();
-                Fullscreen = true;
-            } else {
-                glutReshapeWindow(WinWidth, WinHeight);
-                Fullscreen = false;
-            }
+            SetFullscreen();
             break;
     }
 }
