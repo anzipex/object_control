@@ -15,14 +15,6 @@
                     <name>debug_x86</name>
                     <type>1</type>
                 </confElem>
-                <confElem>
-                    <name>release_x86</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>mingw_x86</name>
-                    <type>1</type>
-                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>

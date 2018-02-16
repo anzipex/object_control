@@ -4,27 +4,4 @@
         <activeConfTypeElem>1</activeConfTypeElem>
         <activeConfIndexElem>0</activeConfIndexElem>
     </data>
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3">
-        <file>
-            <url>main.cpp</url>
-            <bookmark id="2">
-                <name/>
-                <line>89</line>
-                <key/>
-            </bookmark>
-            <bookmark id="3">
-                <name/>
-                <line>224</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
-        <group name="other">
-            <file>file:/home/anzipex/NetBeansProjects/other/object_control/Object.h</file>
-            <file>file:/home/anzipex/NetBeansProjects/other/object_control/Object.cpp</file>
-            <file>file:/home/anzipex/NetBeansProjects/other/object_control/main.cpp</file>
-        </group>
-    </open-files>
 </project-private>
