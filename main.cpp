@@ -23,9 +23,12 @@ void SpecialFunc(int key, int x, int y);
 void ReshapeFunc(int width, int height);
 void ClearAll();
 int RandomPosition();
-int SignChanger();
+int SignChangerRotate();
+int SignChangerTranslate();
 void ChangeRotate();
+void ChangeTranslate();
 void SetAlwaysRotate();
+void SetAlwaysTranslate();
 void SetFullscreen();
 
 uint64_t prevUpdateTime = GetMillisec();
@@ -44,11 +47,17 @@ const float StepLeft = 10.0f;
 const float StepRight = 10.0f;
 
 static float Rotate;
+static float Translate;
 static float RotateSwitch;
+static float TranslateSwitch;
 static float RotateCounter = 0;
+static float TranslateCounter = 0;
 static int DoRotate = 0;
+static int DoTranslate = 0;
 bool SwitcherRotate = false;
 bool RandomRotate = false;
+bool RandomTranslate = false;
+bool SwitcherTranslate = false;
 
 static float TranslateX;
 static float TranslateY;
@@ -92,9 +101,19 @@ void ClearAll() {
     TranslateY = 0;
 }
 
-int SignChanger() {
+int SignChangerRotate() {
     float sign;
     if (RandomRotate) {
+        sign = 1.0f;
+    } else {
+        sign = -1.0f;
+    }
+    return sign;
+}
+
+int SignChangerTranslate() {
+    float sign;
+    if (RandomTranslate) {
         sign = 1.0f;
     } else {
         sign = -1.0f;
@@ -110,12 +129,29 @@ void ChangeRotate() {
     }
 }
 
+void ChangeTranslate() {
+    if (RandomTranslate) {
+        RandomTranslate = false;
+    } else {
+        RandomTranslate = true;
+    }
+}
+
 void SetAlwaysRotate() {
     if (SwitcherRotate) {
         SwitcherRotate = false;
         ChangeRotate();
     } else {
         SwitcherRotate = true;
+    }
+}
+
+void SetAlwaysTranslate() {
+    if (SwitcherTranslate) {
+        SwitcherTranslate = false;
+        ChangeTranslate();
+    } else {
+        SwitcherTranslate = true;
     }
 }
 
@@ -136,16 +172,23 @@ void IdleFunc() {
     while (updateTimeExp > (1000 / updatePerSecond)) {
 
         if (SwitcherRotate) {
-            DoRotate = DoRotate + (SignChanger() * (RotateCounter + 1.0f));
+            DoRotate = DoRotate + (SignChangerRotate() * (RotateCounter + 1.0f));
             RotateSwitch = DoRotate;
-            myobject->setTranslate(TranslateX, TranslateY);
             myobject->setRotate(RotateSwitch);
-            myobject->setDistance(TranslateX, TranslateY);
-        } else {
+        } else if (!SwitcherRotate) {
             DoRotate = 0;
             RotateCounter = 0;
-            myobject->setTranslate(TranslateX, TranslateY);
             myobject->setRotate(Rotate);
+        }
+
+        if (SwitcherTranslate) {
+            DoTranslate = DoTranslate + (SignChangerTranslate() * (TranslateCounter + 1.0f));
+            TranslateSwitch = DoTranslate;
+            TranslateX = TranslateSwitch;
+            myobject->setTranslate(TranslateSwitch, TranslateY);
+            myobject->setDistance(TranslateSwitch, TranslateY);
+        } else if (!SwitcherTranslate) {
+            myobject->setTranslate(TranslateX, TranslateY);
             myobject->setDistance(TranslateX, TranslateY);
         }
 
@@ -263,6 +306,11 @@ void KeyboardFunc(unsigned char key, int x, int y) {
             /* num plus (rotate) */
         case 43:
             SetAlwaysRotate();
+            break;
+
+            /* num minus (translate) */
+        case 45:
+            SetAlwaysTranslate();
             break;
 
             /* escape (exit) */

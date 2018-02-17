@@ -20,6 +20,7 @@ sudo apt install libpng-devel
 - num 3 - down-right
 - num 5 - random position and rotate angle
 - num + - always rotate each turn on makes a turn in different directions
+- num - - always translate each activate makes a translate in different direction by x
 - arrow up - up
 - arrow down - down
 - arrow left - rotate left
