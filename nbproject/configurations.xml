@@ -38,7 +38,7 @@
           <standard>8</standard>
         </ccTool>
         <linkerTool>
-          <output>${CND_DISTDIR}/${CND_CONF}/object_control</output>
+          <output>${CND_DISTDIR}/${CND_CONF}/object_control_linux</output>
           <linkerLibItems>
             <linkerLibLibItem>GL</linkerLibLibItem>
             <linkerLibLibItem>glut</linkerLibLibItem>
@@ -84,7 +84,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
-          <output>${CND_DISTDIR}/${CND_CONF}/object_control</output>
+          <output>${CND_DISTDIR}/${CND_CONF}/object_control_linux</output>
           <linkerLibItems>
             <linkerLibLibItem>GL</linkerLibLibItem>
             <linkerLibLibItem>glut</linkerLibLibItem>
@@ -121,7 +121,7 @@
           <standard>8</standard>
         </ccTool>
         <linkerTool>
-          <output>${CND_DISTDIR}/${CND_CONF}/object_control</output>
+          <output>${CND_DISTDIR}/${CND_CONF}/object_control.exe</output>
           <linkerLibItems>
             <linkerLibLibItem>opengl32</linkerLibLibItem>
             <linkerLibLibItem>glut</linkerLibLibItem>
