@@ -73,7 +73,8 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
+          <architecture>1</architecture>
           <standard>8</standard>
         </ccTool>
         <fortranCompilerTool>
@@ -82,6 +83,15 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/object_control</output>
+          <linkerLibItems>
+            <linkerLibLibItem>GL</linkerLibLibItem>
+            <linkerLibLibItem>glut</linkerLibLibItem>
+            <linkerLibLibItem>png</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>-lglut -lGLU -lGL</commandLine>
+        </linkerTool>
       </compileType>
       <item path="Object.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -111,6 +121,7 @@
           <standard>8</standard>
         </ccTool>
         <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/object_control</output>
           <linkerLibItems>
             <linkerLibLibItem>opengl32</linkerLibLibItem>
             <linkerLibLibItem>glut</linkerLibLibItem>
