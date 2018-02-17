@@ -97,6 +97,8 @@ void PrintInfo() {
 void ClearAll() {
     Rotate = 0;
     DoRotate = 0;
+    Translate = 0;
+    DoTranslate = 0;
     TranslateX = 0;
     TranslateY = 0;
 }
