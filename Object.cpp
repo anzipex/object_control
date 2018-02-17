@@ -146,20 +146,23 @@ void Object::drawBackground() {
     glPopMatrix();
 }
 
-void Object::drawCopyright() {
-    std::string text = "made by anzipex";
-    InitTextError(text.data(), text.size(), 10, 10);
-    glutSwapBuffers();
-}
+void Object::drawText(float positionX, float positionY, float angle) {
+    /* rotate */
+    std::string strAngle = std::to_string(angle);
+    std::string rotation = "rotation ";
+    rotation.append(strAngle);
+    InitTextError(rotation.data(), rotation.size(), 10, 45);
 
-void Object::drawText(float positionX, float positionY) {
+    /* translate */
     std::string strPosX = std::to_string(positionX);
     std::string strPosY = std::to_string(positionY);
     std::string distance = "translate from ceter ";
     distance.append(strPosX);
     distance.append(", ");
     distance.append(strPosY);
-    InitTextError(distance.data(), distance.size(), 10, 25);
+    InitTextError(distance.data(), distance.size(), 10, 30);
+
+    /* copyright */
     std::string copyright = "made by anzipex";
     InitTextError(copyright.data(), copyright.size(), 10, 10);
     glutSwapBuffers();
@@ -168,7 +171,7 @@ void Object::drawText(float positionX, float positionY) {
 void Object::draw() {
     drawBackground();
     drawObject();
-    drawText(_translatePosX, _translatePosY);
+    drawText(_translatePosX, _translatePosY, _rotateAngle);
 }
 
 void Object::setRotate(float rotate) {

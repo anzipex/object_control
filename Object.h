@@ -27,8 +27,7 @@ public:
 private:
     void drawObject();
     void drawBackground();
-    void drawCopyright();
-    void drawText(float positionX, float positionY);
+    void drawText(float positionX, float positionY, float angle);
 
     Texture _background;
     Texture _object;
