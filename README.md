@@ -6,6 +6,7 @@ Control rectangle object by pressing keyboard buttons. Also shows translate coor
 sudo apt install g++
 sudo apt install freeglut3 freeglut3-dev
 sudo apt install libpng12-dev
+sudo apt install libpng-devel
 ```
 
 ###### Controls:
