@@ -302,7 +302,9 @@ void KeyboardFunc(unsigned char key, int x, int y) {
             std::cout << "random\n";
             TranslateX = RandomPosition();
             TranslateY = RandomPosition();
+            Translate = RandomPosition();
             Rotate = RandomPosition();
+            DoTranslate = RandomPosition();
             PrintInfo();
             break;
 
