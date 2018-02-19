@@ -303,7 +303,6 @@ void KeyboardFunc(unsigned char key, int x, int y) {
 
             /* num 5 (random) */
         case 53:
-            std::cout << "random\n";
             TranslateX = RandomPosition();
             TranslateY = RandomPosition();
             Translate = RandomPosition();
