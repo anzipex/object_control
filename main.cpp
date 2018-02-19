@@ -1,6 +1,6 @@
 /** 
  * @file main.cpp
- * @brief initial_dist
+ * @brief object_control
  * @author a.akulin
  * @date February 10, 2018
  */
