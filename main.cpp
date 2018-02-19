@@ -12,8 +12,8 @@
 
 namespace {
 Object *myobject = nullptr;
-int WinWidth = 1280;
-int WinHeight = 720;
+int WinWidth = 640;
+int WinHeight = 360;
 bool Fullscreen = false;
 }
 
@@ -23,8 +23,8 @@ void SpecialFunc(int key, int x, int y);
 void ReshapeFunc(int width, int height);
 void ClearAll();
 int RandomPosition();
-int SignChangerRotate();
-int SignChangerTranslate();
+int SignChangeRotate();
+int SignChangeTranslate();
 void ChangeRotate();
 void ChangeTranslate();
 void SetAlwaysRotate();
@@ -52,12 +52,13 @@ static float RotateSwitch;
 static float TranslateSwitch;
 static float RotateCounter = 0;
 static float TranslateCounter = 0;
-static int DoRotate = 0;
-static int DoTranslate = 0;
+static float DoRotate = 0;
+static float DoTranslate = 0;
 bool SwitcherRotate = false;
 bool RandomRotate = false;
 bool RandomTranslate = false;
 bool SwitcherTranslate = false;
+bool Movement = true;
 
 static float TranslateX;
 static float TranslateY;
@@ -102,7 +103,7 @@ void ClearAll() {
     TranslateY = 0;
 }
 
-int SignChangerRotate() {
+int SignChangeRotate() {
     float sign;
     if (RandomRotate) {
         sign = 1.0f;
@@ -112,7 +113,7 @@ int SignChangerRotate() {
     return sign;
 }
 
-int SignChangerTranslate() {
+int SignChangeTranslate() {
     float sign;
     if (RandomTranslate) {
         sign = 1.0f;
@@ -173,7 +174,7 @@ void IdleFunc() {
     while (updateTimeExp > (1000 / updatePerSecond)) {
 
         if (SwitcherRotate) {
-            DoRotate = DoRotate + (SignChangerRotate() * (RotateCounter + 1.0f));
+            DoRotate = DoRotate + (SignChangeRotate() * (RotateCounter + 1.0f));
             RotateSwitch = DoRotate;
             myobject->setRotate(RotateSwitch);
         } else if (!SwitcherRotate) {
@@ -183,14 +184,18 @@ void IdleFunc() {
         }
 
         if (SwitcherTranslate) {
-            DoTranslate = DoTranslate + (SignChangerTranslate() * (TranslateCounter + 1.0f));
-            TranslateSwitch = DoTranslate;
-            TranslateX = TranslateSwitch;
+            Movement = true;
+            DoTranslate = DoTranslate + (SignChangeTranslate() * (TranslateCounter + 1.0f));
+            TranslateSwitch = TranslateX + DoTranslate;
             myobject->setTranslate(TranslateSwitch, TranslateY);
-            myobject->setDistance(TranslateSwitch, TranslateY);
         } else if (!SwitcherTranslate) {
+            if (Movement) {
+                TranslateX = TranslateSwitch;
+                TranslateSwitch = 0;
+                DoTranslate = 0;
+                Movement = false;
+            }
             myobject->setTranslate(TranslateX, TranslateY);
-            myobject->setDistance(TranslateX, TranslateY);
         }
 
         updateTimeExp -= 1000 / updatePerSecond;

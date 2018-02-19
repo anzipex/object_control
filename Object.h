@@ -22,7 +22,6 @@ public:
     void draw();
     void setRotate(float angle);
     void setTranslate(float positionX, float positionY);
-    void setDistance(float positionX, float positionY);
 
 private:
     void drawObject();

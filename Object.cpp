@@ -182,8 +182,3 @@ void Object::setTranslate(float positionX, float positionY) {
     _translatePosX = positionX;
     _translatePosY = positionY;
 }
-
-void Object::setDistance(float positionX, float positionY) {
-    _translatePosX = positionX;
-    _translatePosY = positionY;
-}
