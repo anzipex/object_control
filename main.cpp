@@ -85,13 +85,12 @@ void DisplayFunc() {
 }
 
 void PrintInfo() {
-    std::cout << "up: " << StepUp << " | " <<
-        "down: " << StepDown << " | " <<
-        "left: " << StepLeft << " | " <<
-        "right: " << StepRight << " | " <<
-        "translateX: " << TranslateX << " | " <<
-        "translateY: " << TranslateY << " | " <<
-        "rotate: " << Rotate << std::endl;
+    std::cout << "\033[1;31mUp\033[0m: " << StepUp << " | " <<
+        "\033[1;31mDown\033[0m: " << StepDown << " | " <<
+        "\033[1;31mLeft\033[0m: " << StepLeft << " | " <<
+        "\033[1;31mRight\033[0m: " << StepRight << " | " <<
+        "\033[1;31mTranslate\033[0m: (" << TranslateX << ", " << TranslateY << ")" << " | " <<
+        "\033[1;31mRotate\033[0m: " << Rotate << std::endl;
 }
 
 void ClearAll() {
