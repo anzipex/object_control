@@ -12,8 +12,8 @@
 
 namespace {
 Object *myobject = nullptr;
-int WinWidth = 640;
-int WinHeight = 360;
+int WinWidth = 1280;
+int WinHeight = 720;
 bool Fullscreen = false;
 }
 
