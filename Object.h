@@ -26,7 +26,7 @@ public:
 private:
     void drawObject();
     void drawBackground();
-    void drawText(float positionX, float positionY, float angle);
+    static void drawText(float positionX, float positionY, float angle);
 
     Texture _background;
     Texture _object;

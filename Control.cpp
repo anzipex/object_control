@@ -12,6 +12,8 @@ _stepUp(10.0f),
 _stepDown(10.0f),
 _stepLeft(10.0f),
 _stepRight(10.0f),
+_rotate(0),
+_rotateSwitch(0),
 _randomRotate(false),
 _switcherRotate(false),
 _rotateCounter(0),
@@ -23,7 +25,7 @@ _randomTranslate(false),
 _switcherTranslate(false),
 _translateCounter(0),
 _doTranslate(0),
-_movement(true) {
+_movement(false) {
 }
 
 Control::~Control() {
@@ -35,7 +37,7 @@ int Control::randomPosition() {
     return output;
 }
 
-int Control::signChangeRotate() {
+int Control::signChangeRotate() const {
     float sign;
     if (_randomRotate) {
         sign = 1.0f;
@@ -45,7 +47,7 @@ int Control::signChangeRotate() {
     return sign;
 }
 
-int Control::signChangeTranslate() {
+int Control::signChangeTranslate() const {
     float sign;
     if (_randomTranslate) {
         sign = 1.0f;
@@ -97,7 +99,7 @@ void Control::clearAll() {
     _translateY = 0;
 }
 
-void Control::printInfo() {
+void Control::printInfo() const {
     std::cout << "\033[1;32mUp\033[0m: " << _stepUp << " | " <<
         "\033[1;32mDown\033[0m: " << _stepDown << " | " <<
         "\033[1;32mLeft\033[0m: " << _stepLeft << " | " <<

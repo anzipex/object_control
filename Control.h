@@ -14,15 +14,15 @@ class Control {
 public:
     Control();
     virtual ~Control();
-    int randomPosition();
-    int signChangeRotate();
-    int signChangeTranslate();
+    static int randomPosition();
+    int signChangeRotate() const;
+    int signChangeTranslate() const;
     void changeRotate();
     void changeTranslate();
     void setAlwaysRotate();
     void setAlwaysTranslate();
     void clearAll();
-    void printInfo();
+    void printInfo() const;
 
     const float _stepUp;
     const float _stepDown;
