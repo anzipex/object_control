@@ -189,7 +189,6 @@ void KeyboardFunc(unsigned char key, int x, int y) {
             control->_translateX = control->randomPosition();
             control->_translateY = control->randomPosition();
             control->_rotate = control->randomPosition();
-            control->_doTranslate = control->randomPosition();
             control->printInfo();
             break;
 
