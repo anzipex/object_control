@@ -12,8 +12,8 @@
 #include "Control.h"
 
 namespace {
-Object *myobject = nullptr;
-Control *mycontrol = nullptr;
+Object *object = nullptr;
+Control *control = nullptr;
 int WinWidth = 1280;
 int WinHeight = 720;
 bool Fullscreen = false;
@@ -48,7 +48,7 @@ void DisplayFunc() {
 
     glLoadIdentity();
 
-    myobject->draw();
+    object->draw();
 
     glutSwapBuffers();
 }
@@ -59,29 +59,29 @@ void IdleFunc() {
 
     while (updateTimeExp > (1000 / updatePerSecond)) {
 
-        if (mycontrol->_switcherRotate) {
-            mycontrol->_doRotate = mycontrol->_doRotate + (mycontrol->signChangeRotate() * (mycontrol->_rotateCounter + 1.0f));
-            mycontrol->_rotateSwitch = mycontrol->_doRotate;
-            myobject->setRotate(mycontrol->_rotateSwitch);
-        } else if (!mycontrol->_switcherRotate) {
-            mycontrol->_doRotate = 0;
-            mycontrol->_rotateCounter = 0;
-            myobject->setRotate(mycontrol->_rotate);
+        if (control->_switcherRotate) {
+            control->_doRotate = control->_doRotate + (control->signChangeRotate() * (control->_rotateCounter + 1.0f));
+            control->_rotateSwitch = control->_doRotate;
+            object->setRotate(control->_rotateSwitch);
+        } else if (!control->_switcherRotate) {
+            control->_doRotate = 0;
+            control->_rotateCounter = 0;
+            object->setRotate(control->_rotate);
         }
 
-        if (mycontrol->_switcherTranslate) {
-            mycontrol->_movement = true;
-            mycontrol->_doTranslate = mycontrol->_doTranslate + (mycontrol->signChangeTranslate() * (mycontrol->_translateCounter + 1.0f));
-            mycontrol->_translateSwitch = mycontrol->_translateX + mycontrol ->_doTranslate;
-            myobject->setTranslate(mycontrol->_translateSwitch, mycontrol->_translateY);
-        } else if (!mycontrol->_switcherTranslate) {
-            if (mycontrol->_movement) {
-                mycontrol->_translateX = mycontrol->_translateSwitch;
-                mycontrol->_translateSwitch = 0;
-                mycontrol->_doTranslate = 0;
-                mycontrol->_movement = false;
+        if (control->_switcherTranslate) {
+            control->_movement = true;
+            control->_doTranslate = control->_doTranslate + (control->signChangeTranslate() * (control->_translateCounter + 1.0f));
+            control->_translateSwitch = control->_translateX + control ->_doTranslate;
+            object->setTranslate(control->_translateSwitch, control->_translateY);
+        } else if (!control->_switcherTranslate) {
+            if (control->_movement) {
+                control->_translateX = control->_translateSwitch;
+                control->_translateSwitch = 0;
+                control->_doTranslate = 0;
+                control->_movement = false;
             }
-            myobject->setTranslate(mycontrol->_translateX, mycontrol->_translateY);
+            object->setTranslate(control->_translateX, control->_translateY);
         }
 
         updateTimeExp -= 1000 / updatePerSecond;
@@ -126,79 +126,79 @@ void KeyboardFunc(unsigned char key, int x, int y) {
     switch (key) {
             /* num 8 (up) */
         case 56:
-            mycontrol->_translateY += mycontrol->_stepUp;
-            mycontrol->printInfo();
+            control->_translateY += control->_stepUp;
+            control->printInfo();
             break;
 
             /* num 2 (down) */
         case 50:
-            mycontrol->_translateY -= mycontrol->_stepDown;
-            mycontrol->printInfo();
+            control->_translateY -= control->_stepDown;
+            control->printInfo();
             break;
 
             /* num 4 (left) */
         case 52:
-            mycontrol->_translateX -= mycontrol->_stepLeft;
-            mycontrol->printInfo();
+            control->_translateX -= control->_stepLeft;
+            control->printInfo();
             break;
 
             /* num 6 (right) */
         case 54:
-            mycontrol->_translateX += mycontrol->_stepRight;
-            mycontrol->printInfo();
+            control->_translateX += control->_stepRight;
+            control->printInfo();
             break;
 
             /* num 7 (up left) */
         case 55:
-            mycontrol->_translateY += mycontrol->_stepUp;
-            mycontrol->_translateX -= mycontrol->_stepLeft;
-            mycontrol->printInfo();
+            control->_translateY += control->_stepUp;
+            control->_translateX -= control->_stepLeft;
+            control->printInfo();
             break;
 
             /* num 9 (up right) */
         case 57:
-            mycontrol->_translateY += mycontrol->_stepUp;
-            mycontrol->_translateX += mycontrol->_stepRight;
-            mycontrol->printInfo();
+            control->_translateY += control->_stepUp;
+            control->_translateX += control->_stepRight;
+            control->printInfo();
             break;
 
             /* num 1 (down left) */
         case 49:
-            mycontrol->_translateY -= mycontrol->_stepDown;
-            mycontrol->_translateX -= mycontrol->_stepLeft;
-            mycontrol->printInfo();
+            control->_translateY -= control->_stepDown;
+            control->_translateX -= control->_stepLeft;
+            control->printInfo();
             break;
 
             /* num 3 (down right) */
         case 51:
-            mycontrol->_translateY -= mycontrol->_stepDown;
-            mycontrol->_translateX += mycontrol->_stepRight;
-            mycontrol->printInfo();
+            control->_translateY -= control->_stepDown;
+            control->_translateX += control->_stepRight;
+            control->printInfo();
             break;
 
             /* num 0 (reset) */
         case 48:
-            mycontrol->clearAll();
-            mycontrol->printInfo();
+            control->clearAll();
+            control->printInfo();
             break;
 
             /* num 5 (random) */
         case 53:
-            mycontrol->_translateX = mycontrol->randomPosition();
-            mycontrol->_translateY = mycontrol->randomPosition();
-            mycontrol->_rotate = mycontrol->randomPosition();
-            mycontrol->_doTranslate = mycontrol->randomPosition();
-            mycontrol->printInfo();
+            control->_translateX = control->randomPosition();
+            control->_translateY = control->randomPosition();
+            control->_rotate = control->randomPosition();
+            control->_doTranslate = control->randomPosition();
+            control->printInfo();
             break;
 
             /* num plus (rotate) */
         case 43:
-            mycontrol->setAlwaysRotate();
+            control->setAlwaysRotate();
             break;
 
             /* num minus (translate) */
         case 45:
-            mycontrol->setAlwaysTranslate();
+            control->setAlwaysTranslate();
             break;
 
             /* escape (exit) */
@@ -213,26 +213,26 @@ void SpecialFunc(int key, int x, int y) {
     switch (key) {
             /* up */
         case GLUT_KEY_UP:
-            mycontrol->_translateY += mycontrol->_stepUp;
-            mycontrol->printInfo();
+            control->_translateY += control->_stepUp;
+            control->printInfo();
             break;
 
             /* down */
         case GLUT_KEY_DOWN:
-            mycontrol->_translateY -= mycontrol->_stepDown;
-            mycontrol->printInfo();
+            control->_translateY -= control->_stepDown;
+            control->printInfo();
             break;
 
             /* rotate (left) */
         case GLUT_KEY_LEFT:
-            mycontrol->_translateX -= mycontrol->_stepLeft;
-            mycontrol->printInfo();
+            control->_translateX -= control->_stepLeft;
+            control->printInfo();
             break;
 
             /* rotate (right) */
         case GLUT_KEY_RIGHT:
-            mycontrol->_translateX += mycontrol->_stepRight;
-            mycontrol->printInfo();
+            control->_translateX += control->_stepRight;
+            control->printInfo();
             break;
 
             /* f11 (fullscreen) */
@@ -254,14 +254,15 @@ void SetFullscreen() {
 
 int main(int argc, char** argv) {
     Display(argc, argv);
-    myobject = new Object;
-    mycontrol = new Control();
+    
+    object = new Object;
+    control = new Control();
 
     glutMainLoop();
 
     /* TODO: put in destructor, because never called */
-    delete myobject;
-    delete mycontrol;
+    delete object;
+    delete control;
     /* END OF TODO */
 
     return 0;
