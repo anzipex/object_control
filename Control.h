@@ -31,7 +31,7 @@ public:
 
     float _rotate;
     float _rotateSwitch;
-    bool _randomRotate = false;
+
     bool _switcherRotate = false;
     float _rotateCounter;
     float _doRotate;
@@ -39,7 +39,6 @@ public:
     float _translateX;
     float _translateY;
     float _translateSwitch;
-    bool _randomTranslate;
     bool _switcherTranslate;
     float _translateCounter;
     float _doTranslate;
@@ -47,6 +46,8 @@ public:
     bool _movement;
 
 private:
+    bool _randomRotate;
+    bool _randomTranslate;
 };
 
 #endif /* CONTROL_H */
