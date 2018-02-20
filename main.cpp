@@ -60,7 +60,8 @@ void IdleFunc() {
     while (updateTimeExp > (1000 / updatePerSecond)) {
 
         if (control->_switcherRotate) {
-            control->_doRotate = control->_doRotate + (control->signChangeRotate() * (control->_rotateCounter + 1.0f));
+            control->_doRotate = control->_doRotate + (control->signChangeRotate() *
+                (control->_rotateCounter + 1.0f));
             control->_rotateSwitch = control->_doRotate;
             object->setRotate(control->_rotateSwitch);
         } else if (!control->_switcherRotate) {
@@ -71,7 +72,8 @@ void IdleFunc() {
 
         if (control->_switcherTranslate) {
             control->_movement = true;
-            control->_doTranslate = control->_doTranslate + (control->signChangeTranslate() * (control->_translateCounter + 1.0f));
+            control->_doTranslate = control->_doTranslate + (control->signChangeTranslate() *
+                (control->_translateCounter + 1.0f));
             control->_translateSwitch = control->_translateX + control ->_doTranslate;
             object->setTranslate(control->_translateSwitch, control->_translateY);
         } else if (!control->_switcherTranslate) {
