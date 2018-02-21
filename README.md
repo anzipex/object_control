@@ -1,5 +1,5 @@
 # object_control
-Control rectangle object by pressing keyboard buttons. Also shows translate coordinates by x & y from center
+Control rectangle object by pressing keyboard buttons. Also shows rotate and translate coordinates by x & y from center
 
 ###### Requirements:
 ```
