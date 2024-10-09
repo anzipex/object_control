@@ -5,8 +5,7 @@ Control rectangle object by pressing keyboard buttons. Also shows rotate and tra
 ```
 sudo apt install g++
 sudo apt install freeglut3 freeglut3-dev
-sudo apt install libpng12-dev
-sudo apt install libpng-devel
+sudo apt install libpng16-16 libpng-dev
 ```
 
 ###### Controls:
@@ -27,3 +26,4 @@ sudo apt install libpng-devel
 - arrow right - rotate right
 - f11 - fullscreen
 - esc - exit
+
