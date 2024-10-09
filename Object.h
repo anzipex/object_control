@@ -3,7 +3,7 @@
 #include "textures.h"
 
 void InitTextError(const char *text, int length, int x, int y);
-void DrawDebugRect(const float width, const float height);
+void DrawDebugRect(float width, float height);
 void DrawTextureBg(Texture *texture);
 void DrawTexture(Texture *texture);
 void DrawRect(int width, int height);

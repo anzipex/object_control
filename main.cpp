@@ -1,23 +1,25 @@
 #include <chrono>
+#include <memory>
 #include <GL/glut.h>
 
 #include "Object.h"
 #include "Control.h"
 
 namespace {
-Object *object = nullptr;
-Control *control = nullptr;
 int WinWidth = 1280;
 int WinHeight = 720;
 bool Fullscreen = false;
 bool ExitPrompt = false;
-}
+} // namespace
 
 uint64_t GetMillisec();
 void KeyboardFunc(unsigned char key, int x, int y);
 void SpecialFunc(int key, int x, int y);
 void ReshapeFunc(int width, int height);
 void SetFullscreen();
+
+static std::unique_ptr<Object> object = nullptr;
+static std::unique_ptr<Control> control = nullptr;
 
 uint64_t prevUpdateTime = GetMillisec();
 float updatePerSecond = 60;
@@ -260,15 +262,8 @@ void SetFullscreen() {
 int main(int argc, char** argv) {
     Display(argc, argv);
 
-    object = new Object;
-    control = new Control();
+    object = std::make_unique<Object>();
+    control = std::make_unique<Control>();
 
     glutMainLoop();
-
-    /* TODO: put in destructor, because never called */
-    delete object;
-    delete control;
-    /* END OF TODO */
-
-    return 0;
 }
