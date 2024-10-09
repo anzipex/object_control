@@ -10,6 +10,7 @@ Control *control = nullptr;
 int WinWidth = 1280;
 int WinHeight = 720;
 bool Fullscreen = false;
+bool ExitPrompt = false;
 }
 
 uint64_t GetMillisec();
@@ -24,17 +25,25 @@ uint64_t prevFrameTime = GetMillisec();
 float framesPerSecond = 60;
 
 uint64_t GetMillisec() {
-    using namespace std;
-    using namespace chrono;
-
-    const auto timePoint = high_resolution_clock::now();
+    const auto timePoint = std::chrono::high_resolution_clock::now();
     const auto duration = timePoint.time_since_epoch();
-    return duration_cast<milliseconds>(duration).count();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 }
 
 void DisplayFunc() {
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
+
+    if (ExitPrompt) {
+        glColor3f(1.0, 1.0, 1.0);
+        glRasterPos2f(-56.0F, 12.0F);
+        const char* message = "Y or N to exit";
+        for (const char* c = message; *c != '\0'; ++c) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
+        }
+        glutSwapBuffers();
+        return;
+    }
 
     glLoadIdentity();
 
@@ -191,10 +200,18 @@ void KeyboardFunc(unsigned char key, int x, int y) {
 
             /* escape (exit) */
         case 27:
-            /* TODO: ask question y or n about exit */
-            exit(1);
-            /* end of TODO */
+            ExitPrompt = true;
+            break;
+        case 'Y':
+        case 'y':
+            exit(0);
+        case 'N':
+        case 'n':
+            ExitPrompt = false;
+            break;
     }
+
+    glutPostRedisplay();
 }
 
 void SpecialFunc(int key, int x, int y) {
