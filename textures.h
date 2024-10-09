@@ -8,6 +8,7 @@
 #ifndef TEXTURES_H
 #define TEXTURES_H
 
+#include <iostream>
 #include <vector>
 
 using uchar = unsigned char;

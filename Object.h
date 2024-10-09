@@ -1,12 +1,4 @@
-/** 
- * @file Object.h
- * @brief Description of class Object
- * @author a.akulin
- * @date February 10, 2018
- */
-
-#ifndef OBJECT_H
-#define OBJECT_H
+#pragma once
 
 #include "textures.h"
 
@@ -34,5 +26,3 @@ private:
     float _translatePosX;
     float _translatePosY;
 };
-
-#endif /* OBJECT_H */

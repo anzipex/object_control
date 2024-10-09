@@ -1,12 +1,4 @@
-/** 
- * @file Control.h
- * @brief Description of class Control
- * @author a.akulin
- * @date February 20, 2018
- */
-
-#ifndef CONTROL_H
-#define CONTROL_H
+#pragma once
 
 #include <iostream>
 
@@ -49,5 +41,3 @@ private:
     bool _randomRotate;
     bool _randomTranslate;
 };
-
-#endif /* CONTROL_H */

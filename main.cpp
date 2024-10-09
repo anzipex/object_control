@@ -1,13 +1,6 @@
-/** 
- * @file main.cpp
- * @brief object_control
- * @author a.akulin
- * @date February 10, 2018
- */
-
-#include <iostream>
 #include <chrono>
 #include <GL/glut.h>
+
 #include "Object.h"
 #include "Control.h"
 
@@ -27,11 +20,8 @@ void SetFullscreen();
 
 uint64_t prevUpdateTime = GetMillisec();
 float updatePerSecond = 60;
-float accumulator = 0;
 uint64_t prevFrameTime = GetMillisec();
 float framesPerSecond = 60;
-uint64_t prevInputTime = GetMillisec();
-float inputPerSecond = 200;
 
 uint64_t GetMillisec() {
     using namespace std;
@@ -96,8 +86,6 @@ void IdleFunc() {
         glutPostRedisplay();
         prevFrameTime = time;
     }
-
-    const auto inputTimeExp = time - prevInputTime;
 }
 
 void ReshapeFunc(int width, int height) {
