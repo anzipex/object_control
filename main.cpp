@@ -2,8 +2,8 @@
 #include <memory>
 #include <GL/glut.h>
 
-#include "Object.h"
-#include "Control.h"
+#include "object.h"
+#include "control.h"
 
 namespace {
 const int WinWidth = 1280;

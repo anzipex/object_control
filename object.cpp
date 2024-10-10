@@ -1,7 +1,7 @@
 #include <string>
 #include <GL/glut.h>
 #include "textures.h"
-#include "Object.h"
+#include "object.h"
 
 void InitTextError(const char *text, int length, int x, int y) {
     glMatrixMode(GL_PROJECTION);
