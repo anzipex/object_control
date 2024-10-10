@@ -1,31 +1,24 @@
-/** 
- * @file Control.cpp
- * @brief Implementing of class Control
- * @author a.akulin
- * @date February 20, 2018
- */
-
 #include "Control.h"
 
 Control::Control() :
-_stepUp(10.0f),
-_stepDown(10.0f),
-_stepLeft(10.0f),
-_stepRight(10.0f),
-_rotate(0),
-_rotateSwitch(0),
-_randomRotate(false),
-_switcherRotate(false),
-_rotateCounter(0),
-_doRotate(0),
-_translateX(0),
-_translateY(0),
-_translateSwitch(0),
-_randomTranslate(false),
-_switcherTranslate(false),
-_translateCounter(0),
-_doTranslate(0),
-_movement(false) {
+stepUp_(10.0F),
+stepDown_(10.0F),
+stepLeft_(10.0F),
+stepRight_(10.0F),
+rotate_(0),
+rotateSwitch_(0),
+randomRotate_(false),
+switcherRotate_(false),
+rotateCounter_(0),
+doRotate_(0),
+translateX_(0),
+translateY_(0),
+translateSwitch_(0),
+randomTranslate_(false),
+switcherTranslate_(false),
+translateCounter_(0),
+doTranslate_(0),
+movement_(false) {
 }
 
 Control::~Control() {
@@ -33,77 +26,63 @@ Control::~Control() {
 }
 
 int Control::randomPosition() {
-    int output = -400 + (rand() % static_cast<int>(400 - (-400) + 1));
-    return output;
+    return (-400 + (rand() % static_cast<int>(400 - (-400) + 1)));
 }
 
-int Control::signChangeRotate() const {
-    float sign;
-    if (_randomRotate) {
-        sign = 1.0f;
-    } else {
-        sign = -1.0f;
+float Control::signChangeRotate() const {
+    if (randomRotate_) {
+        return 1.0F;
     }
-    return sign;
+    return -1.0F;
 }
 
-int Control::signChangeTranslate() const {
-    float sign;
-    if (_randomTranslate) {
-        sign = 1.0f;
-    } else {
-        sign = -1.0f;
+float Control::signChangeTranslate() const {
+    if (randomTranslate_) {
+        return 1.0F;
     }
-    return sign;
+    return -1.0F;
 }
 
 void Control::changeRotate() {
-    if (_randomRotate) {
-        _randomRotate = false;
-    } else {
-        _randomRotate = true;
-    }
+    randomRotate_ = !randomRotate_;
 }
 
 void Control::changeTranslate() {
-    if (_randomTranslate) {
-        _randomTranslate = false;
-    } else {
-        _randomTranslate = true;
-    }
+    randomTranslate_ = !randomTranslate_;
 }
 
 void Control::setAlwaysRotate() {
-    if (_switcherRotate) {
-        _switcherRotate = false;
+    if (switcherRotate_) {
+        switcherRotate_ = false;
         changeRotate();
     } else {
-        _switcherRotate = true;
+        switcherRotate_ = true;
     }
 }
 
 void Control::setAlwaysTranslate() {
-    if (_switcherTranslate) {
-        _switcherTranslate = false;
+    if (switcherTranslate_) {
+        switcherTranslate_ = false;
         changeTranslate();
     } else {
-        _switcherTranslate = true;
+        switcherTranslate_ = true;
     }
 }
 
 void Control::clearAll() {
-    _rotate = 0;
-    _doRotate = 0;
-    _doTranslate = 0;
-    _translateX = 0;
-    _translateY = 0;
+    rotate_ = 0;
+    doRotate_ = 0;
+    doTranslate_ = 0;
+    translateX_ = 0;
+    translateY_ = 0;
 }
 
 void Control::printInfo() const {
-    std::cout << "\033[1;32mUp\033[0m: " << _stepUp << " | " <<
-        "\033[1;32mDown\033[0m: " << _stepDown << " | " <<
-        "\033[1;32mLeft\033[0m: " << _stepLeft << " | " <<
-        "\033[1;32mRight\033[0m: " << _stepRight << " | " <<
-        "\033[1;33mTranslate\033[0m: (" << _translateX << ", " << _translateY << ")" << " | " <<
-        "\033[1;33mRotate\033[0m: " << _rotate << std::endl;
+    std::cout << "\033[1;32mUp\033[0m: " << stepUp_ << " | "
+              << "\033[1;32mDown\033[0m: " << stepDown_ << " | "
+              << "\033[1;32mLeft\033[0m: " << stepLeft_ << " | "
+              << "\033[1;32mRight\033[0m: " << stepRight_ << " | "
+              << "\033[1;33mTranslate\033[0m: (" << translateX_ << ", " << translateY_ << ")"
+              << " | "
+              << "\033[1;33mRotate\033[0m: " << rotate_ << '\n';
 }

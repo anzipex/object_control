@@ -1,67 +1,59 @@
-/** 
- * @file textures.cpp
- * @brief SAMPLE_TEXT
- * @author a.akulin
- * @date January 25, 2018
- */
-
-#include <iostream>
+#include <fstream>
+#include <memory>
+#include <stdexcept>
 #include <GL/gl.h>
 
 #include "textures.h"
 #include "pngutil.h"
 
 Texture::Texture(const char *filename) :
-_texture(0) {
+texture_(0) {
     loadFromFile(filename);
 }
 
 Texture::~Texture() {
-    if (_texture) {
-        glDeleteTextures(1, &_texture);
+    if (texture_) {
+        glDeleteTextures(1, &texture_);
     }
 }
 
-void Texture::loadFromFile(const char * filename) {
-    FILE *file = fopen(filename, "rb");
-
-    if (!file) {
-        std::cerr << filename << " can\'t open" << std::endl;
+void Texture::loadFromFile(const std::string &filename) {
+    FILE *fileHandle = fopen(filename.c_str(), "rb");
+    if (!fileHandle) {
+        throw std::runtime_error("Unable to open file: " + filename);
     }
 
-    if (pnguIsPng(file) == 0) {
-        std::cerr << filename << " is not PNG" << std::endl;
-        fclose(file);
-        return;
+    std::unique_ptr<FILE, decltype(&fclose)> file(fileHandle, fclose);
+
+    if (pnguIsPng(file.get()) == 0) {
+        throw std::runtime_error("File is not a valid PNG: " + filename);
     }
 
     int bytesPerPixel = 0;
-    pnguReadHeader(file, &_width, &_height, &bytesPerPixel);
+
+    pnguReadHeader(file.get(), &width_, &height_, &bytesPerPixel);
 
     if (bytesPerPixel != 4) {
-        std::cerr << filename << " is not RGBA_8888" << std::endl;
-        fclose(file);
+        throw std::runtime_error("File is not RGBA_8888: " + filename);
     }
 
-    const auto pixels = readPixels(file);
-
-    fclose(file);
+    auto pixels = readPixels(file.get());
 
     createOpenglTexture(pixels.data());
 }
 
-std::vector< unsigned char > Texture::readPixels(FILE *file) {
+std::vector< unsigned char > Texture::readPixels(FILE *file) const {
     constexpr int bytesPerPixel = 4;
-    std::vector<unsigned char> pixels(_width * _height * bytesPerPixel);
+    std::vector<unsigned char> pixels(width_ * height_ * bytesPerPixel);
     pnguReadData(file, pixels.data());
     return pixels;
 }
 
-void Texture::createOpenglTexture(const unsigned char *bytes) {
-    glGenTextures(1, &_texture);
+void Texture::createOpenglTexture(const unsigned char *pixels) {
+    glGenTextures(1, &texture_);
 
     bind();
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -69,13 +61,13 @@ void Texture::createOpenglTexture(const unsigned char *bytes) {
 }
 
 void Texture::bind() const {
-    glBindTexture(GL_TEXTURE_2D, _texture);
+    glBindTexture(GL_TEXTURE_2D, texture_);
 }
 
 int Texture::width() const {
-    return _width;
+    return width_;
 }
 
 int Texture::height() const {
-    return _height;
+    return height_;
 }

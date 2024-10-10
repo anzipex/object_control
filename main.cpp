@@ -21,10 +21,10 @@ void SetFullscreen();
 static std::unique_ptr<Object> object = nullptr;
 static std::unique_ptr<Control> control = nullptr;
 
-uint64_t prevUpdateTime = GetMillisec();
-float updatePerSecond = 60;
-uint64_t prevFrameTime = GetMillisec();
-float framesPerSecond = 60;
+uint64_t PrevUpdateTime = GetMillisec();
+const float UpdatePerSecond = 60;
+uint64_t PrevFrameTime = GetMillisec();
+float FramesPerSecond = 60;
 
 uint64_t GetMillisec() {
     const auto timePoint = std::chrono::high_resolution_clock::now();
@@ -56,46 +56,45 @@ void DisplayFunc() {
 
 void IdleFunc() {
     const auto time = GetMillisec();
-    auto updateTimeExp = time - prevUpdateTime;
+    auto updateTimeExp = time - PrevUpdateTime;
 
-    while (updateTimeExp > (1000 / updatePerSecond)) {
+    while (static_cast<float>(updateTimeExp) > (1000 / UpdatePerSecond)) {
 
-        if (control->_switcherRotate) {
-            control->_doRotate = control->_doRotate + (control->signChangeRotate() *
-                                                       (control->_rotateCounter + 1.0f));
-            control->_rotateSwitch = control->_doRotate;
-            object->setRotate(control->_rotateSwitch);
-        } else if (!control->_switcherRotate) {
-            control->_doRotate = 0;
-            control->_rotateCounter = 0;
-            object->setRotate(control->_rotate);
+        if (control->switcherRotate_) {
+            control->doRotate_ = control->doRotate_ + (control->signChangeRotate() *
+                                                       (control->rotateCounter_ + 1.0F));
+            control->rotateSwitch_ = control->doRotate_;
+            object->setRotate(control->rotateSwitch_);
+        } else if (!control->switcherRotate_) {
+            control->doRotate_ = 0;
+            control->rotateCounter_ = 0;
+            object->setRotate(control->rotate_);
         }
 
-        if (control->_switcherTranslate) {
-            control->_movement = true;
-            control->_doTranslate = control->_doTranslate + (control->signChangeTranslate() *
-                                                             (control->_translateCounter + 1.0f));
-            control->_translateSwitch = control->_translateX + control ->_doTranslate;
-            object->setTranslate(control->_translateSwitch, control->_translateY);
-        } else if (!control->_switcherTranslate) {
-            if (control->_movement) {
-                control->_translateX = control->_translateSwitch;
-                control->_translateSwitch = 0;
-                control->_doTranslate = 0;
-                control->_movement = false;
+        if (control->switcherTranslate_) {
+            control->movement_ = true;
+            control->doTranslate_ = control->doTranslate_ + (control->signChangeTranslate() *
+                                                             (control->translateCounter_ + 1.0F));
+            control->translateSwitch_ = control->translateX_ + control ->doTranslate_;
+            object->setTranslate(control->translateSwitch_, control->translateY_);
+        } else if (!control->switcherTranslate_) {
+            if (control->movement_) {
+                control->translateX_ = control->translateSwitch_;
+                control->translateSwitch_ = 0;
+                control->doTranslate_ = 0;
+                control->movement_ = false;
             }
-            object->setTranslate(control->_translateX, control->_translateY);
+            object->setTranslate(control->translateX_, control->translateY_);
         }
 
-        updateTimeExp -= 1000 / updatePerSecond;
-        prevUpdateTime = time;
+        updateTimeExp -= 1000 / UpdatePerSecond;
+        PrevUpdateTime = time;
     }
 
-    const auto frameTimeExp = time - prevFrameTime;
-
-    if (frameTimeExp > (1000 / framesPerSecond)) {
+    const auto frameTimeExp = time - PrevFrameTime;
+    if (static_cast<float>(frameTimeExp) > (1000 / FramesPerSecond)) {
         glutPostRedisplay();
-        prevFrameTime = time;
+        PrevFrameTime = time;
     }
 }
 
@@ -122,57 +121,57 @@ void Display(int argc, char** argv) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void KeyboardFunc(unsigned char key, int x, int y) {
+void KeyboardFunc(unsigned char key, int  /*x*/, int  /*y*/) {
     switch (key) {
             /* num 8 (up) */
         case 56:
-            control->_translateY += control->_stepUp;
+            control->translateY_ += control->stepUp_;
             control->printInfo();
             break;
 
             /* num 2 (down) */
         case 50:
-            control->_translateY -= control->_stepDown;
+            control->translateY_ -= control->stepDown_;
             control->printInfo();
             break;
 
             /* num 4 (left) */
         case 52:
-            control->_translateX -= control->_stepLeft;
+            control->translateX_ -= control->stepLeft_;
             control->printInfo();
             break;
 
             /* num 6 (right) */
         case 54:
-            control->_translateX += control->_stepRight;
+            control->translateX_ += control->stepRight_;
             control->printInfo();
             break;
 
             /* num 7 (up left) */
         case 55:
-            control->_translateY += control->_stepUp;
-            control->_translateX -= control->_stepLeft;
+            control->translateY_ += control->stepUp_;
+            control->translateX_ -= control->stepLeft_;
             control->printInfo();
             break;
 
             /* num 9 (up right) */
         case 57:
-            control->_translateY += control->_stepUp;
-            control->_translateX += control->_stepRight;
+            control->translateY_ += control->stepUp_;
+            control->translateX_ += control->stepRight_;
             control->printInfo();
             break;
 
             /* num 1 (down left) */
         case 49:
-            control->_translateY -= control->_stepDown;
-            control->_translateX -= control->_stepLeft;
+            control->translateY_ -= control->stepDown_;
+            control->translateX_ -= control->stepLeft_;
             control->printInfo();
             break;
 
             /* num 3 (down right) */
         case 51:
-            control->_translateY -= control->_stepDown;
-            control->_translateX += control->_stepRight;
+            control->translateY_ -= control->stepDown_;
+            control->translateX_ += control->stepRight_;
             control->printInfo();
             break;
 
@@ -184,9 +183,9 @@ void KeyboardFunc(unsigned char key, int x, int y) {
 
             /* num 5 (random) */
         case 53:
-            control->_translateX = control->randomPosition();
-            control->_translateY = control->randomPosition();
-            control->_rotate = control->randomPosition();
+            control->translateX_ = static_cast<float>(control->randomPosition());
+            control->translateY_ = static_cast<float>(control->randomPosition());
+            control->rotate_ = static_cast<float>(control->randomPosition());
             control->printInfo();
             break;
 
@@ -211,34 +210,36 @@ void KeyboardFunc(unsigned char key, int x, int y) {
         case 'n':
             ExitPrompt = false;
             break;
+        default:
+            break;
     }
 
     glutPostRedisplay();
 }
 
-void SpecialFunc(int key, int x, int y) {
+void SpecialFunc(int key, int  /*x*/, int  /*y*/) {
     switch (key) {
             /* up */
         case GLUT_KEY_UP:
-            control->_translateY += control->_stepUp;
+            control->translateY_ += control->stepUp_;
             control->printInfo();
             break;
 
             /* down */
         case GLUT_KEY_DOWN:
-            control->_translateY -= control->_stepDown;
+            control->translateY_ -= control->stepDown_;
             control->printInfo();
             break;
 
             /* rotate (left) */
         case GLUT_KEY_LEFT:
-            control->_translateX -= control->_stepLeft;
+            control->translateX_ -= control->stepLeft_;
             control->printInfo();
             break;
 
             /* rotate (right) */
         case GLUT_KEY_RIGHT:
-            control->_translateX += control->_stepRight;
+            control->translateX_ += control->stepRight_;
             control->printInfo();
             break;
 

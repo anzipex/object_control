@@ -7,8 +7,8 @@ public:
     Control();
     virtual ~Control();
     static int randomPosition();
-    int signChangeRotate() const;
-    int signChangeTranslate() const;
+    float signChangeRotate() const;
+    float signChangeTranslate() const;
     void changeRotate();
     void changeTranslate();
     void setAlwaysRotate();
@@ -16,28 +16,28 @@ public:
     void clearAll();
     void printInfo() const;
 
-    const float _stepUp;
-    const float _stepDown;
-    const float _stepLeft;
-    const float _stepRight;
+    const float stepUp_;
+    const float stepDown_;
+    const float stepLeft_;
+    const float stepRight_;
 
-    float _rotate;
-    float _rotateSwitch;
+    float rotate_;
+    float rotateSwitch_;
 
-    bool _switcherRotate = false;
-    float _rotateCounter;
-    float _doRotate;
+    bool switcherRotate_ = false;
+    float rotateCounter_;
+    float doRotate_;
 
-    float _translateX;
-    float _translateY;
-    float _translateSwitch;
-    bool _switcherTranslate;
-    float _translateCounter;
-    float _doTranslate;
+    float translateX_;
+    float translateY_;
+    float translateSwitch_;
+    bool switcherTranslate_;
+    float translateCounter_;
+    float doTranslate_;
 
-    bool _movement;
+    bool movement_;
 
 private:
-    bool _randomRotate;
-    bool _randomTranslate;
+    bool randomRotate_;
+    bool randomTranslate_;
 };

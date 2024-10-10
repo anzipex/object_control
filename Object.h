@@ -20,9 +20,9 @@ private:
     void drawBackground();
     static void drawText(float positionX, float positionY, float angle);
 
-    Texture _background;
-    Texture _object;
-    float _rotateAngle;
-    float _translatePosX;
-    float _translatePosY;
+    Texture background_;
+    Texture object_;
+    float angle_;
+    float posX_;
+    float posY_;
 };
