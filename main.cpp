@@ -6,8 +6,8 @@
 #include "Control.h"
 
 namespace {
-int WinWidth = 1280;
-int WinHeight = 720;
+const int WinWidth = 1280;
+const int WinHeight = 720;
 bool Fullscreen = false;
 bool ExitPrompt = false;
 } // namespace
