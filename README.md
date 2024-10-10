@@ -1,29 +1,29 @@
-# object_control
-Control rectangle object by pressing keyboard buttons. Also shows rotate and translate coordinates by x & y from center
+# Object Control
 
-###### Requirements:
+A program to control a rectangle object using keyboard input. It also displays the object's rotation and translation coordinates along the X and Y axes, relative to the center.
+
+### Requirements:
+To install the necessary dependencies, run the following command:
+```bash
+sudo apt install g++ freeglut3 freeglut3-dev libpng16-16 libpng-dev
 ```
-sudo apt install g++
-sudo apt install freeglut3 freeglut3-dev
-sudo apt install libpng16-16 libpng-dev
-```
 
-###### Controls:
-- num 8 - up
-- num 2 - down
-- num 4 - left
-- num 6 - right
-- num 7 - up-left
-- num 9 - up-right
-- num 1 - down-left
-- num 3 - down-right
-- num 5 - random position and rotate angle
-- num + - always rotate each turn on makes a turn in different directions
-- num - - always translate each activate makes a translate in different direction by x
-- arrow up - up
-- arrow down - down
-- arrow left - rotate left
-- arrow right - rotate right
-- f11 - fullscreen
-- esc - exit
-
+### Controls:
+- **Num 8** — move up
+- **Num 2** — move down
+- **Num 4** — move left
+- **Num 6** — move right
+- **Num 7** — move up-left
+- **Num 9** — move up-right
+- **Num 1** — move down-left
+- **Num 3** — move down-right
+- **Num 5** — random position and rotation angle
+- **Num +** — rotate continuously in alternating directions
+- **Num -** — translate continuously in alternating directions along the X-axis
+- **Arrow Up** — move up
+- **Arrow Down** — move down
+- **Arrow Left** — rotate left
+- **Arrow Right** — rotate right
+- **F11** — toggle fullscreen
+- **Esc** — exit the program
+  
