@@ -115,8 +115,8 @@ void DrawTextureBg(Texture* texture) {
 }
 
 Object::Object() :
-background_("textures/templateBackground.png"),
-object_("textures/templateObject.png"),
+background_("textures/bg.png"),
+object_("textures/object.png"),
 angle_(0),
 posX_(0),
 posY_(0) {

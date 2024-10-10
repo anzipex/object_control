@@ -27,10 +27,10 @@ target_include_directories(object_control PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(object_control OpenGL::GL GLUT::GLUT PNG::PNG)
 
 set(TEXTURE_FILES
-    textures/templateBackground.png
-    textures/templateBackgroundSpace.png
-    textures/templateObject.png
-    textures/templateObjectUfo.png
+    textures/bg.png
+    textures/bg_space.png
+    textures/object.png
+    textures/object_ufo.png
 )
 
 add_custom_command(TARGET object_control POST_BUILD
