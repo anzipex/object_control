@@ -24,7 +24,7 @@ sudo apt install g++ freeglut3 freeglut3-dev libpng16-16 libpng-dev
 - **Num -** — translate continuously in alternating directions along the X-axis
 - **Arrow Up** — move up
 - **Arrow Down** — move down
-- **Arrow Left** — rotate left
-- **Arrow Right** — rotate right
+- **Arrow Left** — move left
+- **Arrow Right** — move right
 - **F11** — toggle fullscreen
 - **Esc** — exit the program
