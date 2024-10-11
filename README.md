@@ -1,5 +1,7 @@
 # Object Control
 
+![screenshot.png](screens/screenshot.png)
+
 A program to control a rectangle object using keyboard input. It also displays the object's rotation and translation coordinates along the X and Y axes, relative to the center.
 
 ### Requirements:
@@ -26,4 +28,3 @@ sudo apt install g++ freeglut3 freeglut3-dev libpng16-16 libpng-dev
 - **Arrow Right** — rotate right
 - **F11** — toggle fullscreen
 - **Esc** — exit the program
-  
